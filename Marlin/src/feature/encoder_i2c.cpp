@@ -46,7 +46,7 @@ void I2CPositionEncoder::init(const uint8_t address, const AxisEnum axis) {
   encoderAxis = axis;
   i2cAddress = address;
 
-  initialized++;
+  initialized = true;
 
   SERIAL_ECHOLNPAIR("Setting up encoder on ", axis_codes[encoderAxis], " axis, addr = ", address);
 
@@ -208,8 +208,7 @@ void I2CPositionEncoder::set_homed() {
     delay(10);
 
     zeroOffset = get_raw_count();
-    homed++;
-    trusted++;
+    homed = trusted = true;
 
     #ifdef I2CPE_DEBUG
       SERIAL_ECHO(axis_codes[encoderAxis]);
@@ -816,7 +815,6 @@ int8_t I2CPositionEncodersMgr::parse() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M860() {
   if (parse()) return;
@@ -846,7 +844,6 @@ void I2CPositionEncodersMgr::M860() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M861() {
   if (parse()) return;
@@ -875,7 +872,6 @@ void I2CPositionEncodersMgr::M861() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M862() {
   if (parse()) return;
@@ -905,7 +901,6 @@ void I2CPositionEncodersMgr::M862() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M863() {
   if (parse()) return;
